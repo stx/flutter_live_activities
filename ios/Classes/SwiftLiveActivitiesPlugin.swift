@@ -334,6 +334,12 @@ public class SwiftLiveActivitiesPlugin: NSObject, FlutterPlugin, FlutterStreamHa
   }
   
   public func applicationWillTerminate(_ application: UIApplication) {
+    if #available(iOS 14.0, *) {
+      if ProcessInfo.processInfo.isiOSAppOnMac {
+        return
+      }
+    }
+    
     if #available(iOS 16.1, *) {
       Task {
         await self.endActivitiesWithId(activityIds: self.appLifecycleLifeActiviyIds)
